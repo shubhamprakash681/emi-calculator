@@ -96,7 +96,7 @@ const EMICalculator: React.FC = () => {
 
     const period = new Date();
     period.setMonth(period.getMonth() + 1); // start from next month
-    for (let month = 0; month <= emiData.tenure; month++) {
+    for (let month = 0; month < emiData.tenure; month++) {
       const interest = Number((remaining * monthlyInterestRate).toFixed(2));
       const principal = Number((emiData.emi - interest).toFixed(2));
       const newRemaining = Number((remaining - principal).toFixed(2));
