@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import EMIParameter from "./EMIParameter";
 import { PieChart } from "react-minimal-pie-chart";
+import Button from "./ui/Button";
+import { Download } from "lucide-react";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 type EMIData = {
   principle: number;
@@ -62,10 +66,61 @@ const calculateEMI = (
   return emi;
 };
 
+const generatePDF = (
+  amortizationData: AmortizationEntry[],
+  setIsExporting: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  const columns: { header: string; dataKey: string }[] = [
+    { header: "Month", dataKey: "id" },
+    { header: "Payment", dataKey: "payment" },
+    { header: "Principal", dataKey: "principal" },
+    { header: "Interest", dataKey: "interest" },
+    { header: "Remaining Balance", dataKey: "remaining" },
+  ];
+
+  setIsExporting(true);
+
+  const doc = new jsPDF({
+    unit: "pt",
+    format: "a4",
+    putOnlyUsedFonts: true,
+    floatPrecision: 16,
+  });
+
+  doc.setFontSize(14);
+  doc.text("Amortization Schedule", 40, 40);
+
+  autoTable(doc, {
+    startY: 60,
+    head: [columns.map((col) => col.header)],
+    body: amortizationData.map((row) => [
+      `${getMonthName(row.period.month)} - ${row.period.year}`,
+      row.payment,
+      row.principal,
+      row.interest,
+      row.remaining,
+    ]),
+    styles: {
+      fontSize: 12,
+      cellPadding: 6,
+    },
+    headStyles: {
+      fillColor: [76, 175, 80],
+      textColor: 255,
+      fontStyle: "bold",
+    },
+  });
+
+  doc.save("Amortization Schedule.pdf");
+  setIsExporting(false);
+};
+
 const EMICalculator: React.FC = () => {
   const [emiData, setEmiData] = useState<EMIData>(() => getInitialValues(1000000));
 
   const [amortizationData, setAmortizationData] = useState<AmortizationEntry[]>([]);
+
+  const [isExporting, setIsExporting] = useState<boolean>(false);
 
   // useEffect for calculating emi and other values when emiData changes
   useEffect(() => {
@@ -276,7 +331,20 @@ const EMICalculator: React.FC = () => {
 
       {/* Amortization Schedule section */}
       <div className="mx-2 sm:mx-4 mt-8">
-        <h3 className="text-lg font-semibold mb-4">Amortization Schedule</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold">Amortization Schedule</h3>
+
+          <Button
+            variant="outlined"
+            className="px-3 py-1 rounded-sm flex items-center gap-2"
+            onClick={() => generatePDF(amortizationData, setIsExporting)}
+            disabled={isExporting}
+          >
+            <Download />
+            Export to PDF
+          </Button>
+        </div>
+
         <div className="!overflow-x-auto">
           <table className="min-w-full table-auto border-collapse border whitespace-nowrap text-center">
             <thead>

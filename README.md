@@ -1,54 +1,97 @@
-# React + TypeScript + Vite
+# EMI Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive and intuitive EMI (Equated Monthly Installment) Calculator web application built with React and Vite that helps users calculate loan payments with detailed breakdowns.
 
-Currently, two official plugins are available:
+🏦 Plan your loans smarter! Try the live calculator: https://emicalculator.shubhamprakash681.in/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+✅ Accurate EMI Calculation - Calculates principal and interest payments
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+✅ Interactive Sliders - Smooth controls for loan amount, interest rate, procession fee, down payment, and tenure
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+✅ Visual Payment Breakdown - Pie chart and amortization table
+
+✅ Dark/Light Mode - Eye-friendly theme options
+
+✅ Printable Results - Export calculation details
+
+✅ Clean, Responsive UI – Works perfectly on all devices. Intuitive and easy-to-use interface.
+
+## How to use
+
+Adjust loan parameters using sliders:
+
+- Loan Amount (₹10,000 to ₹10,00,00,000)
+
+- Interest Rate (1% to 30%)
+
+- Processing Fee (1% to 20%)
+
+- Down payment (0% to 60%)
+
+- Loan Tenure (1 to 60 months)
+
+View instant EMI calculation
+
+Analyze payment breakdown:
+
+- Principal vs Interest amounts in Pie Chart
+
+- Month wise breakdown of scheduled payments
+
+Print your results
+
+## Tech Stack
+
+⚛️ React 18 with Vite
+
+🎨 Tailwind CSS with Dark Mode
+
+📊 react-minimal-pie-chart for data visualization
+
+🧮 Financial Formulas for precise calculations
+
+## Installation & Setup
+
+Clone the repository:
+
+```bash
+    git clone https://github.com/shubhamprakash681/emi-calculator.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Navigate to the project directory:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+    cd emi-calculator
 ```
+
+Install dependencies:
+
+```bash
+  npm install
+```
+
+Run the development server:
+
+```bash
+  npm run dev
+```
+
+Open in browser:
+
+```bash
+  http://localhost:5173/
+```
+
+## Contributing
+
+Contributions are always welcome!
+
+## Deployment
+
+This project is deployed using Vercel.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
